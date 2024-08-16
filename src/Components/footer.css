@@ -1,0 +1,20 @@
+.footer-container {
+    background-color: transparent;
+    color: white;
+    width: calc(100% - 40px);
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.footer-right {
+    margin-left: auto;
+    text-align: right;
+}

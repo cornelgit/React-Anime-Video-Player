@@ -1,0 +1,39 @@
+.arc-info-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.arc-description {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6,
+        0 0 25px #0073e6, 0 0 30px #0073e6, 0 0 35px #0073e6;
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+.episode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.episode-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+}
+
+.episode-container button:hover {
+    background-color: #0056b3;
+}

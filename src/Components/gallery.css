@@ -1,0 +1,42 @@
+.gallery-container {
+    max-width: 1260px;
+    margin: 0 auto;
+    padding-left: 5px;
+}
+
+img {
+    margin-inline: auto;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.image {
+    flex: 1;
+    aspect-ratio: 1 / 1.5;
+    cursor: pointer;
+    pointer-events: auto;
+    background-color: #fff;
+    -webkit-box-reflect: below 4px
+        linear-gradient(transparent, rgba(0, 0, 0, 0.15));
+    perspective: 1000px;
+}
+
+.image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1.5;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: filter 0.25s ease;
+    transform-style: preserve-3d;
+}
+
+.image:hover {
+    filter: brightness(75%);
+}

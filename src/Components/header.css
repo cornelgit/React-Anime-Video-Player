@@ -1,0 +1,17 @@
+.header-container {
+    display: flex;
+    justify-content: center;
+    color: #aaa9ad;
+    border: 2px solid;
+    max-width: 500px;
+    margin: 25px auto;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6,
+        0 0 25px #0073e6, 0 0 30px #0073e6, 0 0 35px #0073e6;
+    font-size: 30px;
+    background-color: black;
+    font-weight: lighter;
+    border-radius: 5px;
+    padding: 0 10px;
+}

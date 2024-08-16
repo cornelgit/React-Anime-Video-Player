@@ -1,0 +1,14 @@
+video::cue {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffc800;
+}
+
+.player-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1270px;
+    max-height: 720px;
+    margin-top: -8px;
+    padding-left: 2px;
+}

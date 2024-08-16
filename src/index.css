@@ -1,0 +1,11 @@
+body {
+    background-image: url(./assets/Background/dark1.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
