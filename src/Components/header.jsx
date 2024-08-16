@@ -4,7 +4,10 @@ function Header({ showHome, onBackToGallery }) {
     return (
         <>
             {showHome ? (
-                <button className="header-container" onClick={onBackToGallery}>
+                <button
+                    className="header-container backToGallery"
+                    onClick={onBackToGallery}
+                >
                     &#x2190; Back to arc selection
                 </button>
             ) : (
