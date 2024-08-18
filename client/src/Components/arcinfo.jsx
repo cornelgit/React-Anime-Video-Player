@@ -18,8 +18,7 @@ const ArcInfo = ({ index, onVideoSelect }) => {
             console.log(`Data: ${JSON.stringify(data)}`);
             console.log(`Video data: ${data.video}`);
             console.log(`Subtitle data: ${data.subtitle}`);
-
-            // Load video and subtitle separately
+            const subs = "http://localhost:3000/videos/Zexal/Zexal065.vtt";
             onVideoSelect(data.video, data.subtitle);
         } catch (error) {
             console.error("Error fetching episode:", error);
