@@ -1,4 +1,3 @@
-
 # Logs
 logs
 *.log
@@ -14,7 +13,6 @@ dist-ssr
 *.local
 
 public/Zexal/
-server/videos/
 
 # Editor directories and files
 .vscode/*
