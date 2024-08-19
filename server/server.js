@@ -33,15 +33,15 @@ function getEpisodePaths(episodeID, callback) {
             break;
         case "10":
             videoPath = "Vector/Zexal096.mp4";
-            subPath = "Vector/Zexal096.mp4";
+            subPath = "Vector/Zexal096.vtt";
             break;
         case "11":
             videoPath = "Vector/Zexal097.mp4";
-            subPath = "Vector/Zexal097.mp4";
+            subPath = "Vector/Zexal097.vtt";
             break;
         case "12":
             videoPath = "Vector/Zexal098.mp4";
-            subPath = "Vector/Zexal098.mp4";
+            subPath = "Vector/Zexal098.vtt";
             break;
         case "20":
             videoPath = "Elifas/Zexal119.mp4";
