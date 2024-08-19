@@ -34,38 +34,12 @@ function VideoPlayer({ videoUrl, subtitleUrl }) {
     const handleKeyDown = useCallback(
         (event) => {
             if (reactPlayerRef.current) {
-                if (event.key === " ") {
+                if (event.key === " " || event.key === "Enter") {
                     event.preventDefault();
                     if (reactPlayerRef.current.getInternalPlayer().paused) {
                         reactPlayerRef.current.getInternalPlayer().play();
                     } else {
                         reactPlayerRef.current.getInternalPlayer().pause();
-                    }
-                }
-
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                    const playerElement = reactPlayerRef.current.wrapper;
-
-                    if (!document.fullscreenElement) {
-                        playerElement
-                            .requestFullscreen()
-                            .then(() => {
-                                playerRef.current.focus();
-                            })
-                            .catch((err) => {
-                                console.error(
-                                    "Error attempting to enable fullscreen mode:",
-                                    err
-                                );
-                            });
-                    } else {
-                        document.exitFullscreen().catch((err) => {
-                            console.error(
-                                "Error attempting to exit fullscreen mode:",
-                                err
-                            );
-                        });
                     }
                 }
 
