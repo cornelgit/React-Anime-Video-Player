@@ -9,6 +9,7 @@ function VideoPlayer({ videoUrl, subtitleUrl }) {
     const [showVolume, setShowVolume] = useState(false);
     const [volumePercentage, setVolumePercentage] = useState(50);
     const [currentTime, setCurrentTime] = useState(0);
+    const [playing, setPlaying] = useState(false); // State to control playback
 
     useEffect(() => {
         if (playerRef.current) {
@@ -88,6 +89,10 @@ function VideoPlayer({ videoUrl, subtitleUrl }) {
         setCurrentTime(progress.playedSeconds);
     };
 
+    const handleReady = () => {
+        setPlaying(true); // Start playing when the video is ready
+    };
+
     useEffect(() => {
         if (showVolume) {
             const timer = setTimeout(() => {
@@ -118,6 +123,8 @@ function VideoPlayer({ videoUrl, subtitleUrl }) {
                 width="100%"
                 height="100%"
                 volume={volume}
+                playing={playing} // Control playback with state
+                onReady={handleReady} // Set playing to true when ready
                 onProgress={handleProgress}
                 onSeek={handleSeek}
                 config={{
@@ -131,6 +138,11 @@ function VideoPlayer({ videoUrl, subtitleUrl }) {
                                 default: true,
                             },
                         ],
+                        hlsOptions: {
+                            maxBufferSize: 60 * 1024 * 1024, // Limit buffer size to 60 MB
+                            maxInitialBufferSize: 10 * 1024 * 1024, // Limit initial buffer size to 10 MB
+                            forceHLS: true, // Force HLS for streaming
+                        },
                     },
                 }}
             />

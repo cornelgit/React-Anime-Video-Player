@@ -1,15 +1,38 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const episodes = require("./data/episodes.json");
-const favicon = require("serve-favicon");
+import express from "express";
+import cors from "cors";
+import path from "path";
+import episodes from "./data/episodes.json" assert { type: "json" }; // Use assert for JSON imports
+import favicon from "serve-favicon";
+import rateLimit from "express-rate-limit";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-app.use(cors());
+
+// CORS configuration
+app.use(
+    cors({
+        origin: "http://localhost:5173", // Replace with your frontend URL
+        methods: ["GET", "HEAD", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
+
 const PORT = process.env.PORT || 3000;
 
-app.use(favicon(path.join(__dirname, "./icon/favicon.ico")));
-app.use("/videos", express.static(path.join(__dirname, "videos")));
+app.use(favicon(path.join(process.cwd(), "icon/favicon.ico"))); // Use process.cwd() for absolute path
+
+// Serve static files from the 'videos' directory
+app.use("/videos", express.static(path.join(process.cwd(), "videos"))); // Use process.cwd() for absolute path
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try again later.",
+});
+
+app.use(limiter);
 
 app.get("/", (req, res) => {
     res.send(
@@ -21,16 +44,32 @@ function getEpisodePaths(episodeID) {
     return episodes.find((episode) => episode.id === episodeID) || null;
 }
 
-app.get("/episode/:number", (req, res) => {
-    const episode = req.params.number;
-    const paths = getEpisodePaths(episode);
+// Handle preflight requests for the video endpoint
+app.options("/episode/:number/video", cors());
+
+// Endpoint to get video file
+app.get("/episode/:number/video", (req, res) => {
+    const episodeID = req.params.number;
+    const paths = getEpisodePaths(episodeID);
 
     if (paths) {
-        const baseUrl = `http://localhost:${PORT}/videos/Zexal/`;
-        res.json({
-            video: `${baseUrl}/${paths.video}`,
-            subtitle: `${baseUrl}/${paths.subtitle}`,
-        });
+        // Construct the full S3 URL for the video
+        const videoUrl = `https://${process.env.S3_BUCKET_NAME}.s3.us-west-2.amazonaws.com/${paths.video}`;
+        res.json({ videoUrl }); // Return the video URL
+    } else {
+        res.status(404).json({ error: "Episode not found" });
+    }
+});
+
+// Endpoint to get subtitle file
+app.get("/episode/:number/subtitle", (req, res) => {
+    const episodeID = req.params.number;
+    const paths = getEpisodePaths(episodeID);
+
+    if (paths) {
+        // Construct the full S3 URL for the subtitle
+        const subtitleUrl = `https://${process.env.S3_BUCKET_NAME}.s3.us-west-2.amazonaws.com/${paths.subtitle}`;
+        res.json({ subtitleUrl }); // Return the subtitle URL
     } else {
         res.status(404).json({ error: "Episode not found" });
     }

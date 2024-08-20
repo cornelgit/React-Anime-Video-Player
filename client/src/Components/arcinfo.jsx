@@ -1,26 +1,30 @@
 import "./arcinfo.css";
 import axios from "axios";
 import arcdetails from "../data/arcdetails.json";
+import { useState } from "react";
 
 const ArcInfo = ({ index, onVideoSelect }) => {
     const arcTitles = Object.keys(arcdetails);
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
+    const [loading, setLoading] = useState(false);
 
     const getEpisode = async (episode) => {
+        setLoading(true);
         try {
-            const response = await axios.get(
-                `http://localhost:3000/episode/${episode}`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
+            const videoResponse = await axios.get(
+                `http://localhost:3000/episode/${episode}/video`
             );
-            const data = response.data;
-            onVideoSelect(data.video, data.subtitle);
+            const videoUrl = videoResponse.data.videoUrl;
+            const subtitleResponse = await axios.get(
+                `http://localhost:3000/episode/${episode}/subtitle`
+            );
+            const subtitleUrl = subtitleResponse.data.subtitleUrl;
+            onVideoSelect(videoUrl, subtitleUrl);
         } catch (error) {
             console.error("Error fetching episode:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -48,8 +52,9 @@ const ArcInfo = ({ index, onVideoSelect }) => {
                     <button
                         key={index}
                         onClick={() => handleEpisodeClick(episode)}
+                        disabled={loading}
                     >
-                        {episode}
+                        {loading ? "Loading..." : episode}
                     </button>
                 ))}
             </div>
