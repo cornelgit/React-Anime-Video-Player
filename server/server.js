@@ -36,7 +36,7 @@ app.use(limiter);
 
 app.get("/", (req, res) => {
     res.send(
-        "Welcome to the Video API! Use /episode/:number to get video and subtitle links."
+        "Welcome to the Video API! Use /episode/:number/video to get video file or /episode/:number/subtitle for sub."
     );
 });
 
@@ -54,7 +54,7 @@ app.get("/episode/:number/video", (req, res) => {
 
     if (paths) {
         // Construct the full S3 URL for the video
-        const videoUrl = `https://${process.env.S3_BUCKET_NAME}.s3.us-west-2.amazonaws.com/${paths.video}`;
+        const videoUrl = `https://${process.env.CLOUDFRONT_NAME}/${paths.video}`;
         res.json({ videoUrl }); // Return the video URL
     } else {
         res.status(404).json({ error: "Episode not found" });
@@ -68,7 +68,7 @@ app.get("/episode/:number/subtitle", (req, res) => {
 
     if (paths) {
         // Construct the full S3 URL for the subtitle
-        const subtitleUrl = `https://${process.env.S3_BUCKET_NAME}.s3.us-west-2.amazonaws.com/${paths.subtitle}`;
+        const subtitleUrl = `https://${process.env.CLOUDFRONT_NAME}/${paths.subtitle}`;
         res.json({ subtitleUrl }); // Return the subtitle URL
     } else {
         res.status(404).json({ error: "Episode not found" });
