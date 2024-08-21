@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./gallery.css";
 import card from "../assets/VideoGallery/card.jpg";
 import gal1 from "../assets/VideoGallery/gal1.png";
@@ -10,7 +10,9 @@ import ArcInfo from "./arcinfo";
 
 function Gallery({ onVideoSelect }) {
     const originalImages = [gal1, gal2, gal3, gal4, gal5];
-    const [images, setImages] = useState(originalImages);
+    const memoizedImages = useMemo(() => originalImages, [originalImages]);
+
+    const [images, setImages] = useState(memoizedImages);
     const imageRefs = useRef([]);
     const [flipIndex, setFlipIndex] = useState(null);
     const [showArcInfo, setShowArcInfo] = useState(false);
@@ -31,19 +33,30 @@ function Gallery({ onVideoSelect }) {
         };
     }, []);
 
+    useEffect(() => {
+        const preloadImages = () => {
+            memoizedImages.forEach((image) => {
+                const img = new Image();
+                img.src = image;
+            });
+        };
+
+        preloadImages();
+    }, [memoizedImages]);
+
     const handleClick = (index) => {
         setImages((prevImages) => {
             const newImages = [...prevImages];
             const isCurrentCard = newImages[index] === card;
 
             if (isCurrentCard) {
-                newImages[index] = originalImages[index];
+                newImages[index] = memoizedImages[index];
                 setFlipIndex(null);
                 setShowArcInfo(false);
             } else {
                 const cardIndex = newImages.findIndex((img) => img === card);
                 if (cardIndex !== -1) {
-                    newImages[cardIndex] = originalImages[cardIndex];
+                    newImages[cardIndex] = memoizedImages[cardIndex];
                 }
                 newImages[index] = card;
                 setFlipIndex(index);
