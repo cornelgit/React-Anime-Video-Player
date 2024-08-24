@@ -27,6 +27,7 @@ app.use(favicon(path.join(process.cwd(), "icon/favicon.ico"))); // Use process.c
 // Serve static files from the 'videos' directory
 app.use("/videos", express.static(path.join(process.cwd(), "videos"))); // Use process.cwd() for absolute path
 
+// Where??????
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 50, // Limit each IP to 50 requests per windowMs
@@ -109,8 +110,11 @@ app.use((err, req, res, next) => {
     res.status(500).send("Something broke!");
 });
 
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-app.get("/favicon.ico", (req, res) => res.status(204).end());
+//SIG INT - gracefully close on unexpected event
+//https://www.perplexity.ai/search/git-bash-kill-a-process-SiZpHNgrQ5uQ6GuoTHzqcQ

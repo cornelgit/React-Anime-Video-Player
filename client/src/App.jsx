@@ -9,34 +9,25 @@ function App() {
     const [videoUrl, setVideoUrl] = useState("");
     const [subtitleUrl, setSubtitleUrl] = useState("");
     const [showVideoPlayer, setShowVideoPlayer] = useState(false);
-    const [showHome, setShowHome] = useState(false);
+    const [goHome, setGoHome] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const handleVideoSelect = (videoPath, subtitlePath) => {
         setLoading(true);
-        setShowHome(true);
+        setGoHome(true);
         setVideoUrl(videoPath);
         setSubtitleUrl(subtitlePath);
         setShowVideoPlayer(false);
-
-        setTimeout(() => {
-            console.log("Loading finished");
-            setLoading(false);
-            setShowVideoPlayer(true);
-        }, 2000);
-    };
-
-    const handleBackToGallery = () => {
-        setShowVideoPlayer(false);
-        setShowHome(false);
+        setLoading(false);
+        setShowVideoPlayer(true);
     };
 
     return (
         <>
             <Header
-                showHome={showHome}
-                showVideoPlayer={showVideoPlayer}
-                onBackToGallery={handleBackToGallery}
+                goHome={goHome}
+                setGoHome={setGoHome}
+                setShowVideoPlayer={setShowVideoPlayer}
             />
             {!loading && !showVideoPlayer && (
                 <Gallery onVideoSelect={handleVideoSelect} loading={loading} />

@@ -2,7 +2,7 @@ import "./arcinfo.css";
 import axios from "axios";
 import arcdetails from "../data/arcdetails.json";
 
-const ArcInfo = ({ index, onVideoSelect }) => {
+function ArcInfo({ index, onVideoSelect }) {
     const arcTitles = Object.keys(arcdetails);
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
@@ -55,6 +55,6 @@ const ArcInfo = ({ index, onVideoSelect }) => {
             </div>
         </div>
     );
-};
+}
 
 export default ArcInfo;
