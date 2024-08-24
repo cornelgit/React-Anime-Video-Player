@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./gallery.css";
-import card from "../assets/VideoGallery/card.jpg";
-import gal1 from "../assets/VideoGallery/gal1.png";
-import gal2 from "../assets/VideoGallery/gal2.png";
-import gal3 from "../assets/VideoGallery/gal3.png";
-import gal4 from "../assets/VideoGallery/gal4.png";
-import gal5 from "../assets/VideoGallery/gal5.png";
+import card from "/Assets/VideoGallery/card.jpg";
+import gal1 from "/Assets/VideoGallery/gal1.png";
+import gal2 from "/Assets/VideoGallery/gal2.png";
+import gal3 from "/Assets/VideoGallery/gal3.png";
+import gal4 from "/Assets/VideoGallery/gal4.png";
+import gal5 from "/Assets/VideoGallery/gal5.png";
 import ArcInfo from "./arcinfo";
 
 function Gallery({ onVideoSelect }) {
