@@ -1,7 +1,7 @@
 import { useState } from "react";
 import VideoPlayer from "./Components/videoplayer";
 import Gallery from "./Components/gallery";
-import Header from "./Components/header";
+import Title from "./Components/title";
 import Footer from "./Components/footer";
 import LoadingSpinner from "./Components/loadingspinner";
 
@@ -24,7 +24,7 @@ function App() {
 
     return (
         <>
-            <Header
+            <Title
                 goHome={goHome}
                 setGoHome={setGoHome}
                 setShowVideoPlayer={setShowVideoPlayer}
