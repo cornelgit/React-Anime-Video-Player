@@ -30,6 +30,7 @@ function Gallery({ onVideoSelect }) {
                     ref.removeEventListener("click", () => handleClick(index));
                 }
             });
+            setImages(memoizedImages);
         };
     }, []);
 
