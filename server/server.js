@@ -78,20 +78,6 @@ function getEpisodePaths(episodeID) {
 // Handle preflight requests for the video endpoint
 app.options("/episode/:number/video", cors());
 
-// // Endpoint to get video file
-// app.get("/episode/:number/video", (req, res) => {
-//     const episodeID = req.params.number;
-//     const paths = getEpisodePaths(episodeID);
-
-//     if (paths) {
-//         const videoUrl = `https://${process.env.CLOUDFRONT_NAME}/${paths.video}`;
-//         res.json({ videoUrl });
-//     } else {
-//         res.status(404).json({ error: "Episode not found" });
-//     }
-// });
-
-//==================================================
 // Endpoint to stream video file from CloudFront
 app.get("/episode/:number/video", (req, res) => {
     const episodeID = req.params.number;
@@ -164,9 +150,6 @@ app.listen(PORT, () => {
 // Graceful shutdown on SIGINT
 process.on("SIGINT", async () => {
     console.log("Received SIGINT. Shutting down gracefully...");
-
-    // Here you can perform any cleanup tasks if necessary
-    // For example, closing database connections or clearing caches
 
     server.close(() => {
         console.log("Closed out remaining connections.");

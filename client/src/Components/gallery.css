@@ -1,5 +1,6 @@
 .gallery-container {
-    max-width: 1260px;
+    width: 66vw;
+    height: 66vh;
     margin: 0 auto;
     padding-left: 5px;
 }
@@ -42,4 +43,38 @@ img {
 
 .image:hover {
     filter: brightness(75%);
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 844px) and (orientation: portrait) {
+    .gallery-container {
+        width: 100%;
+        padding: 0 2px;
+        margin-top: 45px;
+    }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 844px) and (orientation: landscape) {
+    .gallery-container {
+        margin-top: 10px;
+    }
+}
+
+/* Media Query for iPad */
+@media (width: 1024px) and (orientation: portrait) {
+    .gallery-container {
+        width: 100%;
+        padding: 0 2px;
+        margin-top: 121px;
+    }
+}
+
+/* Media Query for iPad */
+@media (width: 1366px) and (orientation: landscape) {
+    .gallery-container {
+        width: 88%;
+        padding: 0 0 0 4px;
+        margin-top: 69px;
+    }
 }

@@ -4,7 +4,7 @@
     color: #aaa9ad;
     border: 2px solid;
     max-width: 500px;
-    margin: 25px auto;
+    align-content: center;
     text-align: center;
     color: #fff;
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6,
@@ -14,8 +14,38 @@
     font-weight: lighter;
     border-radius: 5px;
     padding: 5px 20px;
+    margin: 23px auto;
 }
 
 .backToGallery:hover {
     filter: brightness(75%);
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 844px) and (orientation: portrait) {
+    .title-container {
+        font-size: 1rem;
+        margin-top: 54px;
+    }
+}
+
+@media (max-width: 844px) and (orientation: landscape) {
+    .title-container {
+        margin: 0 auto;
+        font-size: 0.5rem;
+    }
+}
+
+/* Media Query for iPad */
+@media (width: 1024px) and (orientation: portrait) {
+    .title-container {
+        margin-top: 50px;
+    }
+}
+
+/* Media Query for iPad */
+@media (width: 1366px) and (orientation: landscape) {
+    .title-container {
+        margin-top: 50px;
+    }
 }

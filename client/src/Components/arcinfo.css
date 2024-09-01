@@ -38,3 +38,75 @@
 .episode-container button:hover {
     background-color: #0056b3;
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 844px) and (orientation: portrait) {
+    .arc-info-container {
+        width: 100%;
+        margin-top: 90px;
+    }
+
+    .arc-description {
+        font-size: 1.25rem;
+    }
+
+    .episode-container button {
+        font-size: 0.75rem;
+        text-align: start;
+    }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 844px) and (orientation: landscape) {
+    .arc-info-container {
+        width: 100%;
+    }
+
+    .arc-description {
+        font-size: 1rem;
+        margin: 20px auto;
+    }
+
+    .episode-container button {
+        font-size: 0.5rem;
+        text-align: start;
+    }
+
+    .episode-container {
+        gap: 2px;
+    }
+}
+
+/* Media Query for iPad */
+@media (width: 1024px) and (orientation: portrait) {
+    .arc-info-container {
+        width: 100%;
+        margin-top: 225px;
+    }
+
+    .arc-description {
+        font-size: 2.5rem;
+    }
+
+    .episode-container button {
+        font-size: 1.35rem;
+        text-align: start;
+    }
+}
+
+/* Media Query for iPad */
+@media (width: 1366px) and (orientation: landscape) {
+    .arc-info-container {
+        width: 100%;
+        margin-top: 55px;
+    }
+
+    .arc-description {
+        font-size: 2rem;
+    }
+
+    .episode-container button {
+        font-size: 1rem;
+        text-align: start;
+    }
+}
