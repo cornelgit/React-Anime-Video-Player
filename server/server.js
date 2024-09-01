@@ -143,7 +143,8 @@ app.use((err, req, res, next) => {
 
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 
-app.listen(PORT, () => {
+// Start the server and store the instance
+const server = app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
@@ -162,3 +163,5 @@ process.on("SIGINT", async () => {
         process.exit(1); // Exit with failure
     }, 10000); // 10 seconds timeout
 });
+
+export default app;
