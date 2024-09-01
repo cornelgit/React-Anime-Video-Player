@@ -5,6 +5,7 @@ import favicon from "serve-favicon";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 import { readFile } from "fs/promises";
+import https from "https";
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -66,9 +67,7 @@ async function loadEpisodes() {
 loadEpisodes();
 
 app.get("/", (req, res) => {
-    res.send(
-        "Welcome to the Video API! Use /episode/:number/video to get video file or /episode/:number/subtitle for sub."
-    );
+    res.send("Welcome to the Anime Video API! Server is running...");
 });
 
 // Function to get episode paths from cached data
@@ -79,14 +78,60 @@ function getEpisodePaths(episodeID) {
 // Handle preflight requests for the video endpoint
 app.options("/episode/:number/video", cors());
 
-// Endpoint to get video file
+// // Endpoint to get video file
+// app.get("/episode/:number/video", (req, res) => {
+//     const episodeID = req.params.number;
+//     const paths = getEpisodePaths(episodeID);
+
+//     if (paths) {
+//         const videoUrl = `https://${process.env.CLOUDFRONT_NAME}/${paths.video}`;
+//         res.json({ videoUrl });
+//     } else {
+//         res.status(404).json({ error: "Episode not found" });
+//     }
+// });
+
+//==================================================
+// Endpoint to stream video file from CloudFront
 app.get("/episode/:number/video", (req, res) => {
     const episodeID = req.params.number;
     const paths = getEpisodePaths(episodeID);
 
     if (paths) {
         const videoUrl = `https://${process.env.CLOUDFRONT_NAME}/${paths.video}`;
-        res.json({ videoUrl });
+
+        // Get the range header from the request
+        const range = req.headers.range;
+
+        if (!range) {
+            res.status(416).send("Range Not Specified");
+            return;
+        }
+
+        // Fetch the video stream with the specified range from CloudFront
+        https
+            .get(videoUrl, { headers: { Range: range } }, (videoStream) => {
+                const { statusCode, headers } = videoStream;
+
+                if (statusCode === 200 || statusCode === 206) {
+                    // Set the appropriate headers for the response
+                    res.writeHead(statusCode, {
+                        "Content-Range": headers["content-range"],
+                        "Accept-Ranges": "bytes",
+                        "Content-Length": headers["content-length"],
+                        "Content-Type": headers["content-type"],
+                    });
+
+                    // Pipe the video stream to the response
+                    videoStream.pipe(res);
+                } else {
+                    res.status(statusCode).send("Error fetching video");
+                }
+            })
+            .on("error", (err) => {
+                console.error("Error streaming video:", err);
+                res.status(500).json({ error: "Error streaming video" });
+            });
     } else {
         res.status(404).json({ error: "Episode not found" });
     }
@@ -116,5 +161,21 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-//SIG INT - gracefully close on unexpected event
-//https://www.perplexity.ai/search/git-bash-kill-a-process-SiZpHNgrQ5uQ6GuoTHzqcQ
+// Graceful shutdown on SIGINT
+process.on("SIGINT", async () => {
+    console.log("Received SIGINT. Shutting down gracefully...");
+
+    // Here you can perform any cleanup tasks if necessary
+    // For example, closing database connections or clearing caches
+
+    server.close(() => {
+        console.log("Closed out remaining connections.");
+        process.exit(0); // Exit the process
+    });
+
+    // If the server takes too long to close, force shutdown after a timeout
+    setTimeout(() => {
+        console.error("Forcing shutdown...");
+        process.exit(1); // Exit with failure
+    }, 10000); // 10 seconds timeout
+});

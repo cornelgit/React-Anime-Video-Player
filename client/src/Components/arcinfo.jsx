@@ -7,16 +7,33 @@ function ArcInfo({ index, onVideoSelect }) {
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
 
+    // const getEpisode = async (episode) => {
+    //     try {
+    //         const videoResponse = await axios.get(
+    //             `http://localhost:3000/episode/${episode}/video`
+    //         );
+    //         const videoUrl = videoResponse.data.videoUrl;
+    //         const subtitleResponse = await axios.get(
+    //             `http://localhost:3000/episode/${episode}/subtitle`
+    //         );
+    //         const subtitleUrl = subtitleResponse.data.subtitleUrl;
+    //         onVideoSelect(videoUrl, subtitleUrl);
+    //     } catch (error) {
+    //         console.error("Error fetching episode:", error);
+    //         alert("Failed to load episode. Please try again.");
+    //     }
+    // };
+
     const getEpisode = async (episode) => {
         try {
-            const videoResponse = await axios.get(
-                `http://localhost:3000/episode/${episode}/video`
-            );
-            const videoUrl = videoResponse.data.videoUrl;
+            // Directly fetch the video stream URL
+            const videoUrl = `http://localhost:3000/episode/${episode}/video`;
             const subtitleResponse = await axios.get(
                 `http://localhost:3000/episode/${episode}/subtitle`
             );
             const subtitleUrl = subtitleResponse.data.subtitleUrl;
+
+            // Pass the video stream URL and subtitle URL to the parent component
             onVideoSelect(videoUrl, subtitleUrl);
         } catch (error) {
             console.error("Error fetching episode:", error);
