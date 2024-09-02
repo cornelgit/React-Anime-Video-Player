@@ -1,5 +1,5 @@
 .arc-info-container {
-    margin: 73px auto;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     width: 60%;
@@ -8,7 +8,7 @@
 .arc-description {
     display: flex;
     justify-content: center;
-    margin: 50px auto;
+    margin: 80px auto;
     text-align: center;
     color: #fff;
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6,

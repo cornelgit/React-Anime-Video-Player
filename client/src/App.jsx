@@ -4,6 +4,7 @@ import Gallery from "./Components/gallery";
 import Title from "./Components/title";
 import Footer from "./Components/footer";
 import LoadingSpinner from "./Components/loadingspinner";
+import Frame from "./Components/frame";
 
 function App() {
     const [videoUrl, setVideoUrl] = useState("");
@@ -29,25 +30,26 @@ function App() {
                 setGoHome={setGoHome}
                 setShowVideoPlayer={setShowVideoPlayer}
             />
-            {!loading && !showVideoPlayer && (
-                <Gallery onVideoSelect={handleVideoSelect} loading={loading} />
-            )}
-            {loading ? (
-                <LoadingSpinner />
-            ) : (
-                showVideoPlayer && (
-                    <div
-                        className="player-container"
-                        style={{ position: "relative" }}
-                    >
-                        <VideoPlayer
-                            videoUrl={videoUrl}
-                            subtitleUrl={subtitleUrl}
-                        />
-                    </div>
-                )
-            )}
-            <Footer />
+            <Frame>
+                {!loading && !showVideoPlayer && (
+                    <Gallery
+                        onVideoSelect={handleVideoSelect}
+                        loading={loading}
+                    />
+                )}
+                {loading ? (
+                    <LoadingSpinner />
+                ) : (
+                    showVideoPlayer && (
+                        <div className="player-container">
+                            <VideoPlayer
+                                videoUrl={videoUrl}
+                                subtitleUrl={subtitleUrl}
+                            />
+                        </div>
+                    )
+                )}
+            </Frame>
         </>
     );
 }
