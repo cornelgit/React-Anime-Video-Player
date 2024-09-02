@@ -15,7 +15,8 @@ let episodesCache = []; // Variable to store cached episodes data
 //CORS configuration
 app.use(
     cors({
-        origin: "https://react-anime-video-player.vercel.app", // Allow requests from this origin
+        origin: "*", // Allow requests from this origin
+        //origin: "https://react-anime-video-player.vercel.app", // Allow requests from this origin
         methods: ["GET", "HEAD", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })
@@ -24,9 +25,6 @@ app.use(
 const PORT = process.env.PORT || 3000;
 
 app.use(favicon(path.join(process.cwd(), "icon/favicon.ico"))); // Use process.cwd() for absolute path
-
-// Serve static files from the 'videos' directory
-app.use("/videos", express.static(path.join(process.cwd(), "videos"))); // Use process.cwd() for absolute path
 
 // Rate limiter - per user
 const limiter = rateLimit({

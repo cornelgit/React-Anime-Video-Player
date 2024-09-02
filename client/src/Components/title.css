@@ -20,32 +20,3 @@
 .backToGallery:hover {
     filter: brightness(75%);
 }
-
-/* Media Query for Mobile Devices */
-@media (max-width: 844px) and (orientation: portrait) {
-    .title-container {
-        font-size: 1rem;
-        margin-top: 54px;
-    }
-}
-
-@media (max-width: 844px) and (orientation: landscape) {
-    .title-container {
-        margin: 0 auto;
-        font-size: 0.5rem;
-    }
-}
-
-/* Media Query for iPad */
-@media (width: 1024px) and (orientation: portrait) {
-    .title-container {
-        margin-top: 50px;
-    }
-}
-
-/* Media Query for iPad */
-@media (width: 1366px) and (orientation: landscape) {
-    .title-container {
-        margin-top: 50px;
-    }
-}
