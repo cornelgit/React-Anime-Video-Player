@@ -76,7 +76,7 @@ function getEpisodePaths(episodeID) {
 }
 
 // Handle preflight requests for the video endpoint
-app.options("/episode/:number/video", cors());
+app.options("*", cors());
 
 // Endpoint to stream video file from CloudFront
 app.get("/episode/:number/video", (req, res) => {
