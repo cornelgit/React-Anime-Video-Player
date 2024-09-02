@@ -15,7 +15,7 @@ let episodesCache = []; // Variable to store cached episodes data
 //CORS configuration
 app.use(
     cors({
-        origin: "https://react-anime-video-player-grns65z9h-cornel-stoicas-projects.vercel.app/", // Allow requests from this origin
+        origin: "https://react-anime-video-player.vercel.app/", // Allow requests from this origin
         methods: ["GET", "HEAD", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
     })
