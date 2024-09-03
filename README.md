@@ -12,7 +12,9 @@ Undergraduate Student at OIT
 
 ## Overview
 
-Anime Video Player is a web application designed to stream anime videos efficiently. The application features a user-friendly interface and leverages modern web technologies to provide a seamless viewing experience.
+Anime Video Player is a web application designed to stream certain Yu-gi-oh Zexal anime episode videos from specific arcs efficiently.
+The application features a user-friendly interface with a video player that supports subtitles (episodes are originally in Japanese)
+and leverages modern web technologies to provide a seamless viewing experience.
 
 ## Architecture
 
