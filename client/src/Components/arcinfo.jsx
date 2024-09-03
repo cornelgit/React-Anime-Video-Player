@@ -9,14 +9,10 @@ function ArcInfo({ index, onVideoSelect }) {
 
     const getEpisode = async (episode) => {
         try {
-            const videoUrl = `http://localhost:3000/episode/${episode}/video`;
+            const videoUrl = `https://react-anime-video-player.onrender.com/episode/${episode}/video`;
             const subtitleResponse = await axios.get(
-                `http://localhost:3000/episode/${episode}/subtitle`
+                `https://react-anime-video-player.onrender.com/episode/${episode}/subtitle`
             );
-            // const videoUrl = `https://react-anime-video-player.onrender.com/episode/${episode}/video`;
-            // const subtitleResponse = await axios.get(
-            //     `https://react-anime-video-player.onrender.com/episode/${episode}/subtitle`
-            // );
             const subtitleUrl = subtitleResponse.data.subtitleUrl;
             onVideoSelect(videoUrl, subtitleUrl);
         } catch (error) {

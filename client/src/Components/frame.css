@@ -5,7 +5,6 @@
     align-items: center;
     padding: 0;
     background-color: transparent;
-    border: 10px solid #333;
     border-radius: 15px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     width: 100%;
@@ -13,6 +12,11 @@
     margin: 0 auto;
     max-width: 1280px;
     max-height: 720px;
+    border-image-slice: 233 375 233 375;
+    border-image-width: 50px 40px 40px 40px;
+    border-image-outset: 40px;
+    border-image-repeat: stretch stretch;
+    border-image-source: url("/Assets/Frame/frame-new.png");
 }
 
 .frame-content {
