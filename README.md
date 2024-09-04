@@ -27,35 +27,17 @@ The application is structured as follows:
 
 ## Installation
 
-To get started with the project, follow these steps:
+To clone the project and view its source code:
 
 1. Clone the repository:
     ```bash
     git clone https://github.com/yourusername/anime-video-player.git
     cd anime-video-player
     ```
-2. Install the dependencies for both the frontend and backend:
-   npm install
 
-## Usage
+## Requirements
 
-To run the application in development mode, use the following command:
-
-```bash
-npm run dev
-```
-
-To build the application for production, run:
-
-```bash
-npm run build
-```
-
-To start the production server, execute:
-
-```bash
-npm start
-```
+This app requires a specific cloudfront cdn account and will not function without it. This account is kept secret from any user for security reasons.
 
 ## Contributing
 
