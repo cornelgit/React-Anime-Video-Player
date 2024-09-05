@@ -1,11 +1,15 @@
-.title-container {
+.button-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: end;
+}
+
+.title-container,
+.sound-button {
+    display: flex;
     color: #aaa9ad;
     border: 2px solid;
-    max-width: 500px;
     align-content: center;
-    text-align: center;
     color: #fff;
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6,
         0 0 25px #0073e6, 0 0 30px #0073e6, 0 0 35px #0073e6;
@@ -14,10 +18,21 @@
     font-weight: lighter;
     border-radius: 5px;
     padding: 5px 20px;
-    margin: 40px auto;
+    margin: 40px 0;
 }
 
-.backToGallery:hover {
+.title-container {
+    width: 80%;
+    justify-content: center;
+}
+
+.sound-button {
+    width: 20%;
+    justify-content: center;
+}
+
+.backToGallery:hover,
+.sound-button:hover {
     color: black;
     background-color: white;
 }

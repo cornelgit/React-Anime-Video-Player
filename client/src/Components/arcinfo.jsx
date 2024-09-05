@@ -2,7 +2,10 @@ import "./arcinfo.css";
 import axios from "axios";
 import arcdetails from "../data/arcdetails.json";
 
-function ArcInfo({ index, onVideoSelect }) {
+const buttonHoverSoundFile = "/Assets/Sounds/button-hover.mp3";
+const playSoundFile = "/Assets/Sounds/play.mp3";
+
+function ArcInfo({ index, onVideoSelect, soundOn }) {
     const arcTitles = Object.keys(arcdetails);
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
@@ -33,7 +36,16 @@ function ArcInfo({ index, onVideoSelect }) {
     const handleEpisodeClick = (episode) => {
         const paddedEpisode = extractAndPadNumber(episode);
         if (paddedEpisode) {
+            playSound(playSoundFile);
             getEpisode(paddedEpisode);
+        }
+    };
+
+    const playSound = (soundFile) => {
+        if (soundOn) {
+            const audio = new Audio(soundFile);
+            audio.volume = 0.25;
+            audio.play();
         }
     };
 
@@ -45,6 +57,7 @@ function ArcInfo({ index, onVideoSelect }) {
                     <button
                         key={index}
                         onClick={() => handleEpisodeClick(episode)}
+                        onMouseEnter={() => playSound(buttonHoverSoundFile)}
                     >
                         {episode}
                     </button>

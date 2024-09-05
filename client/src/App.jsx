@@ -12,6 +12,7 @@ function App() {
     const [showVideoPlayer, setShowVideoPlayer] = useState(false);
     const [goHome, setGoHome] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [soundOn, setSoundOn] = useState(false);
 
     const handleVideoSelect = (videoPath, subtitlePath) => {
         setLoading(true);
@@ -23,18 +24,25 @@ function App() {
         setShowVideoPlayer(true);
     };
 
+    const handleSoundToggle = () => {
+        setSoundOn((prevSoundOn) => !prevSoundOn);
+    };
+
     return (
         <>
             <Title
                 goHome={goHome}
                 setGoHome={setGoHome}
                 setShowVideoPlayer={setShowVideoPlayer}
+                soundOn={soundOn}
+                handleSoundToggle={handleSoundToggle}
             />
             <Frame>
                 {!loading && !showVideoPlayer && (
                     <Gallery
                         onVideoSelect={handleVideoSelect}
                         loading={loading}
+                        soundOn={soundOn}
                     />
                 )}
                 {loading ? (

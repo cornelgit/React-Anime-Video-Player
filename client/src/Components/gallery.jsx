@@ -9,6 +9,9 @@ import gal5 from "/Assets/VideoGallery/gal5.png";
 import ArcInfo from "./arcinfo";
 import { motion } from "framer-motion";
 
+const cardSoundFile = "/Assets/Sounds/card-move.mp3";
+const cardFlipSoundFile = "/Assets/Sounds/card-flip.mp3";
+
 const imageVariants = {
     initial: {
         y: 500,
@@ -27,7 +30,7 @@ const containerVariants = {
     initial: {},
     animate: {
         transition: {
-            staggerChildren: 0.25,
+            staggerChildren: 0.3,
         },
     },
 };
@@ -41,28 +44,21 @@ const flipVariants = {
     },
 };
 
-function Gallery({ onVideoSelect }) {
+function Gallery({ onVideoSelect, loading, soundOn }) {
     const originalImages = [gal1, gal2, gal3, gal4, gal5];
     const memoizedImages = useMemo(() => originalImages, [originalImages]);
     const [images, setImages] = useState(memoizedImages);
-    const imageRefs = useRef([]);
     const [flipIndex, setFlipIndex] = useState(null);
     const [showArcInfo, setShowArcInfo] = useState(false);
 
     useEffect(() => {
-        imageRefs.current.forEach((ref, index) => {
-            if (ref) {
-                ref.addEventListener("click", () => handleClick(index));
-            }
-        });
-
-        return () => {
-            imageRefs.current.forEach((ref, index) => {
-                if (ref) {
-                    ref.removeEventListener("click", () => handleClick(index));
-                }
+        if (soundOn) {
+            images.forEach((_, index) => {
+                setTimeout(() => {
+                    playSound(cardSoundFile);
+                }, index * 300);
             });
-        };
+        }
     }, []);
 
     const handleClick = (index) => {
@@ -83,7 +79,18 @@ function Gallery({ onVideoSelect }) {
                 setFlipIndex(index);
                 setShowArcInfo(true);
             }
+            if (soundOn) {
+                playSound(cardFlipSoundFile);
+            }
             return newImages;
+        });
+    };
+
+    const playSound = (soundFile) => {
+        const audio = new Audio(soundFile);
+        audio.volume = 0.25;
+        audio.play().catch((error) => {
+            console.error("Audio playback failed:", error);
         });
     };
 
@@ -109,11 +116,11 @@ function Gallery({ onVideoSelect }) {
                             transition={{
                                 duration: 0.5,
                             }}
+                            onClick={() => handleClick(index)}
                         >
                             <img
                                 src={src}
                                 alt={`Image ${index + 1}`}
-                                ref={(el) => (imageRefs.current[index] = el)}
                                 className="image-content"
                                 style={{ cursor: "pointer" }}
                             />
@@ -122,7 +129,11 @@ function Gallery({ onVideoSelect }) {
                 ))}
             </motion.div>
             {showArcInfo && flipIndex !== null && (
-                <ArcInfo index={flipIndex} onVideoSelect={onVideoSelect} />
+                <ArcInfo
+                    index={flipIndex}
+                    onVideoSelect={onVideoSelect}
+                    soundOn={soundOn}
+                />
             )}
         </div>
     );
