@@ -1,7 +1,7 @@
 .footer-container {
     background-color: transparent;
     color: white;
-    width: calc(100% - 40px);
+    width: calc(100% - 20px);
     position: absolute;
     bottom: 0;
     left: 20px;
@@ -12,6 +12,7 @@
     justify-content: space-between;
     align-items: center;
     height: 40px;
+    font-size: 0.9rem;
 }
 
 .footer-right {

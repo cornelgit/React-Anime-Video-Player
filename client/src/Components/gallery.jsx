@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import "./gallery.css";
 import card from "/Assets/VideoGallery/card.jpg";
 import gal1 from "/Assets/VideoGallery/gal1.png";
@@ -7,11 +7,43 @@ import gal3 from "/Assets/VideoGallery/gal3.png";
 import gal4 from "/Assets/VideoGallery/gal4.png";
 import gal5 from "/Assets/VideoGallery/gal5.png";
 import ArcInfo from "./arcinfo";
+import { motion } from "framer-motion";
+
+const imageVariants = {
+    initial: {
+        y: 500,
+        opacity: 0,
+    },
+    animate: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+        },
+    },
+};
+
+const containerVariants = {
+    initial: {},
+    animate: {
+        transition: {
+            staggerChildren: 0.25,
+        },
+    },
+};
+
+const flipVariants = {
+    front: {
+        rotateY: 0,
+    },
+    back: {
+        rotateY: 180,
+    },
+};
 
 function Gallery({ onVideoSelect }) {
     const originalImages = [gal1, gal2, gal3, gal4, gal5];
     const memoizedImages = useMemo(() => originalImages, [originalImages]);
-
     const [images, setImages] = useState(memoizedImages);
     const imageRefs = useRef([]);
     const [flipIndex, setFlipIndex] = useState(null);
@@ -30,20 +62,8 @@ function Gallery({ onVideoSelect }) {
                     ref.removeEventListener("click", () => handleClick(index));
                 }
             });
-            setImages(memoizedImages);
         };
     }, []);
-
-    useEffect(() => {
-        const preloadImages = () => {
-            memoizedImages.forEach((image) => {
-                const img = new Image();
-                img.src = image;
-            });
-        };
-
-        preloadImages();
-    }, [memoizedImages]);
 
     const handleClick = (index) => {
         setImages((prevImages) => {
@@ -69,18 +89,38 @@ function Gallery({ onVideoSelect }) {
 
     return (
         <div className="gallery-container">
-            <div className="gallery">
+            <motion.div
+                className="gallery"
+                variants={containerVariants}
+                initial="initial"
+                animate="animate"
+            >
                 {images.map((src, index) => (
-                    <div className="image" key={index}>
-                        <img
-                            src={src}
-                            alt={`Image ${index + 1}`}
-                            ref={(el) => (imageRefs.current[index] = el)}
-                            className={flipIndex === index ? "flip" : ""}
-                        />
-                    </div>
+                    <motion.div
+                        className="image"
+                        key={index}
+                        variants={imageVariants}
+                    >
+                        <motion.div
+                            className="image-wrapper"
+                            initial="front"
+                            animate={flipIndex === index ? "back" : "front"}
+                            variants={flipVariants}
+                            transition={{
+                                duration: 0.5,
+                            }}
+                        >
+                            <img
+                                src={src}
+                                alt={`Image ${index + 1}`}
+                                ref={(el) => (imageRefs.current[index] = el)}
+                                className="image-content"
+                                style={{ cursor: "pointer" }}
+                            />
+                        </motion.div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
             {showArcInfo && flipIndex !== null && (
                 <ArcInfo index={flipIndex} onVideoSelect={onVideoSelect} />
             )}
