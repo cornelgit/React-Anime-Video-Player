@@ -2,9 +2,9 @@
 
 ## Author
 
-Cornel Stoica
-Full-stack developer
-Beaverton, OR
+Cornel Stoica  
+Full-stack developer  
+Beaverton, OR  
 
 ## About
 
