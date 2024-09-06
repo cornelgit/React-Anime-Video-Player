@@ -9,9 +9,13 @@ function ArcInfo({ index, onVideoSelect, setLoading }) {
 
     const getEpisode = async (episode) => {
         try {
-            const videoUrl = `${process.env.BACKEND_URL}/episode/${episode}/video`;
+            const videoUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/episode/${episode}/video`;
             const subtitleResponse = await axios.get(
-                `${process.env.BACKEND_URL}/episode/${episode}/subtitle`
+                `${
+                    import.meta.env.VITE_BACKEND_URL
+                }/episode/${episode}/subtitle`
             );
             const subtitleUrl = subtitleResponse.data.subtitleUrl;
             onVideoSelect(videoUrl, subtitleUrl);
