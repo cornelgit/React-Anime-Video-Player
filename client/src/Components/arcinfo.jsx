@@ -2,10 +2,7 @@ import "./arcinfo.css";
 import axios from "axios";
 import arcdetails from "../data/arcdetails.json";
 
-const buttonHoverSoundFile = "/Assets/Sounds/button-hover.mp3";
-const playSoundFile = "/Assets/Sounds/play.mp3";
-
-function ArcInfo({ index, onVideoSelect, soundOn }) {
+function ArcInfo({ index, onVideoSelect, setLoading }) {
     const arcTitles = Object.keys(arcdetails);
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
@@ -21,6 +18,8 @@ function ArcInfo({ index, onVideoSelect, soundOn }) {
         } catch (error) {
             console.error("Error fetching episode:", error);
             alert("Failed to load episode. Please try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -36,16 +35,7 @@ function ArcInfo({ index, onVideoSelect, soundOn }) {
     const handleEpisodeClick = (episode) => {
         const paddedEpisode = extractAndPadNumber(episode);
         if (paddedEpisode) {
-            playSound(playSoundFile);
             getEpisode(paddedEpisode);
-        }
-    };
-
-    const playSound = (soundFile) => {
-        if (soundOn) {
-            const audio = new Audio(soundFile);
-            audio.volume = 0.25;
-            audio.play();
         }
     };
 
@@ -57,7 +47,6 @@ function ArcInfo({ index, onVideoSelect, soundOn }) {
                     <button
                         key={index}
                         onClick={() => handleEpisodeClick(episode)}
-                        onMouseEnter={() => playSound(buttonHoverSoundFile)}
                     >
                         {episode}
                     </button>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./gallery.css";
 import card from "/Assets/VideoGallery/card.jpg";
 import gal1 from "/Assets/VideoGallery/gal1.png";
@@ -8,9 +8,6 @@ import gal4 from "/Assets/VideoGallery/gal4.png";
 import gal5 from "/Assets/VideoGallery/gal5.png";
 import ArcInfo from "./arcinfo";
 import { motion } from "framer-motion";
-
-const cardSoundFile = "/Assets/Sounds/card-move.mp3";
-const cardFlipSoundFile = "/Assets/Sounds/card-flip.mp3";
 
 const imageVariants = {
     initial: {
@@ -44,7 +41,7 @@ const flipVariants = {
     },
 };
 
-function Gallery({ onVideoSelect, loading, soundOn }) {
+function Gallery({ onVideoSelect, setLoading, setArcSelected }) {
     const originalImages = [gal1, gal2, gal3, gal4, gal5];
     const memoizedImages = useMemo(() => originalImages, [originalImages]);
     const [images, setImages] = useState(memoizedImages);
@@ -52,14 +49,12 @@ function Gallery({ onVideoSelect, loading, soundOn }) {
     const [showArcInfo, setShowArcInfo] = useState(false);
 
     useEffect(() => {
-        if (soundOn) {
-            images.forEach((_, index) => {
-                setTimeout(() => {
-                    playSound(cardSoundFile);
-                }, index * 300);
-            });
+        if (flipIndex !== null) {
+            setArcSelected(true);
+        } else {
+            setArcSelected(false);
         }
-    }, []);
+    }, [flipIndex]);
 
     const handleClick = (index) => {
         setImages((prevImages) => {
@@ -79,18 +74,7 @@ function Gallery({ onVideoSelect, loading, soundOn }) {
                 setFlipIndex(index);
                 setShowArcInfo(true);
             }
-            if (soundOn) {
-                playSound(cardFlipSoundFile);
-            }
             return newImages;
-        });
-    };
-
-    const playSound = (soundFile) => {
-        const audio = new Audio(soundFile);
-        audio.volume = 0.25;
-        audio.play().catch((error) => {
-            console.error("Audio playback failed:", error);
         });
     };
 
@@ -132,7 +116,7 @@ function Gallery({ onVideoSelect, loading, soundOn }) {
                 <ArcInfo
                     index={flipIndex}
                     onVideoSelect={onVideoSelect}
-                    soundOn={soundOn}
+                    setLoading={setLoading}
                 />
             )}
         </div>

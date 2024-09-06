@@ -3,22 +3,8 @@ import { useEffect, useState } from "react";
 
 const buttonHoverSoundFile = "/Assets/Sounds/button-hover.mp3";
 
-function Title({
-    goHome,
-    setGoHome,
-    setShowVideoPlayer,
-    soundOn,
-    handleSoundToggle,
-}) {
+function Title({ goHome, setGoHome, setShowVideoPlayer, arcSelected }) {
     const [serverUp, setServerUp] = useState(false);
-
-    const playSound = (soundFile) => {
-        if (soundOn) {
-            const audio = new Audio(soundFile);
-            audio.volume = 0.25;
-            audio.play();
-        }
-    };
 
     function pingServer(url) {
         fetch(url, { method: "GET", mode: "no-cors" })
@@ -46,20 +32,16 @@ function Title({
                             setGoHome(!goHome);
                             setShowVideoPlayer(false);
                         }}
-                        onMouseEnter={() =>
-                            soundOn ? playSound(buttonHoverSoundFile) : null
-                        }
                     >
                         &#x2190; Back to arc selection
                     </button>
                 ) : (
                     <button className="title-container">
-                        Select a Yu-Gi-Oh Zexal arc
+                        {arcSelected
+                            ? "Choose episode to play"
+                            : "Select a Yu-Gi-Oh Zexal arc"}
                     </button>
                 )}
-                <button className="sound-button" onClick={handleSoundToggle}>
-                    Sounds {soundOn ? "ON" : "OFF"}
-                </button>
             </div>
         </>
     );

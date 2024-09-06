@@ -1,11 +1,10 @@
 .button-container {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
 }
 
-.title-container,
-.sound-button {
+.title-container {
     display: flex;
     color: #aaa9ad;
     border: 2px solid;
@@ -21,18 +20,7 @@
     margin: 40px 0;
 }
 
-.title-container {
-    width: 80%;
-    justify-content: center;
-}
-
-.sound-button {
-    width: 20%;
-    justify-content: center;
-}
-
-.backToGallery:hover,
-.sound-button:hover {
+.backToGallery:hover {
     color: black;
     background-color: white;
 }

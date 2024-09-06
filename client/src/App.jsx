@@ -12,20 +12,16 @@ function App() {
     const [showVideoPlayer, setShowVideoPlayer] = useState(false);
     const [goHome, setGoHome] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [soundOn, setSoundOn] = useState(false);
+    const [arcSelected, setArcSelected] = useState(false);
 
     const handleVideoSelect = (videoPath, subtitlePath) => {
-        setLoading(true);
         setGoHome(true);
+        setShowVideoPlayer(false);
         setVideoUrl(videoPath);
         setSubtitleUrl(subtitlePath);
-        setShowVideoPlayer(false);
+        setShowVideoPlayer(true);
         setLoading(false);
         setShowVideoPlayer(true);
-    };
-
-    const handleSoundToggle = () => {
-        setSoundOn((prevSoundOn) => !prevSoundOn);
     };
 
     return (
@@ -34,15 +30,14 @@ function App() {
                 goHome={goHome}
                 setGoHome={setGoHome}
                 setShowVideoPlayer={setShowVideoPlayer}
-                soundOn={soundOn}
-                handleSoundToggle={handleSoundToggle}
+                arcSelected={arcSelected}
             />
             <Frame>
                 {!loading && !showVideoPlayer && (
                     <Gallery
                         onVideoSelect={handleVideoSelect}
-                        loading={loading}
-                        soundOn={soundOn}
+                        setLoading={setLoading}
+                        setArcSelected={setArcSelected}
                     />
                 )}
                 {loading ? (
