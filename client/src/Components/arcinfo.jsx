@@ -9,6 +9,7 @@ function ArcInfo({ index, onVideoSelect, setLoading }) {
 
     const getEpisode = async (episode) => {
         try {
+            setLoading(true);
             const videoUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/episode/${episode}/video`;
@@ -21,7 +22,9 @@ function ArcInfo({ index, onVideoSelect, setLoading }) {
             onVideoSelect(videoUrl, subtitleUrl);
         } catch (error) {
             console.error("Error fetching episode:", error);
-            alert("Failed to load episode. Please try again.");
+            alert(
+                "Failed to load episode. Video server may be spinning up or is down. Please try again."
+            );
         } finally {
             setLoading(false);
         }

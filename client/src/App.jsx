@@ -20,8 +20,8 @@ function App() {
         setVideoUrl(videoPath);
         setSubtitleUrl(subtitlePath);
         setShowVideoPlayer(true);
-        setLoading(false);
         setShowVideoPlayer(true);
+        setLoading(false);
     };
 
     return (

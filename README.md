@@ -2,8 +2,8 @@
 
 ## Author
 
-Cornel Stoica
-Full-stack developer
+Cornel Stoica  
+Full-stack developer  
 Beaverton, OR
 
 ## About
@@ -37,7 +37,7 @@ To clone the project and view its source code:
 
 ## Requirements
 
-This app requires a specific URLs and account names and will not function without them. These are kept secret from user for security reasons.
+This app requires specific URLs and account names and will not function without them. For security reasons these are kept hidden from user.
 
 ## Contributing
 
