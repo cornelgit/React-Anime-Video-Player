@@ -37,7 +37,7 @@ To clone the project and view its source code:
 
 ## Requirements
 
-This app requires a specific cloudfront cdn account and will not function without it. This account is kept secret from any user for security reasons.
+This app requires a specific URLs and account names and will not function without them. These are kept secret from user for security reasons.
 
 ## Contributing
 
