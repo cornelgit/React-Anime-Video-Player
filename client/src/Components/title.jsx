@@ -1,15 +1,12 @@
 import "./title.css";
 import { useEffect, useState } from "react";
 
-const buttonHoverSoundFile = "/Assets/Sounds/button-hover.mp3";
-
 function Title({ goHome, setGoHome, setShowVideoPlayer, arcSelected }) {
     const [serverUp, setServerUp] = useState(false);
 
     function pingServer(url) {
         fetch(url, { method: "GET", mode: "no-cors" })
             .then((response) => {
-                //console.log("Server is online");
                 setServerUp(true);
             })
             .catch((error) => {
