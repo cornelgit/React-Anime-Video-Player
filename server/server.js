@@ -31,7 +31,11 @@ app.use(favicon(path.join(process.cwd(), "icon/favicon.ico"))); // Use process.c
 // Rate limiter - per user
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 50 requests per windowMs
+    max: 100, // Limit each IP to 100 requests per windowMs
+    keyGenerator: (req, res) => {
+        // Use req.ip to get the actual IP address
+        return req.ip;
+    },
     message: "Too many requests from this IP, please try again later.",
 });
 
