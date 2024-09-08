@@ -12,6 +12,9 @@ dotenv.config(); // Load environment variables from .env file
 const app = express();
 let episodesCache = []; // Variable to store cached episodes data
 
+// Trust proxy to use X-Forwarded-For header
+app.set("trust proxy", true);
+
 //CORS configuration
 app.use(
     cors({
@@ -28,7 +31,7 @@ app.use(favicon(path.join(process.cwd(), "icon/favicon.ico"))); // Use process.c
 // Rate limiter - per user
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 50, // Limit each IP to 50 requests per windowMs
+    max: 100, // Limit each IP to 50 requests per windowMs
     message: "Too many requests from this IP, please try again later.",
 });
 
