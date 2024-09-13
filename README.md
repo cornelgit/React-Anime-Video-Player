@@ -29,9 +29,22 @@ The application is structured as follows:
 To clone the project and view its source code:
 
 1. Clone the repository:
+
     ```bash
     git clone https://github.com/yourusername/anime-video-player.git
     cd anime-video-player
+    ```
+
+2. Install Dependencies:
+
+    ```bash
+    npm install
+    ```
+
+3. Run/build:
+
+    ```bash
+    npm run dev
     ```
 
 ## Requirements
