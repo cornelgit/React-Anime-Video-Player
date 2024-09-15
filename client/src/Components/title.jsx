@@ -1,23 +1,27 @@
 import "./title.css";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { ArcSelectionContext } from "../App";
 
-function Title({ goHome, setGoHome, setShowVideoPlayer, arcSelected }) {
-    const [serverUp, setServerUp] = useState(false);
+function Title() {
+    // const [serverUp, setServerUp] = useState(false);
 
-    function pingServer(url) {
-        fetch(url, { method: "GET", mode: "no-cors" })
-            .then((response) => {
-                setServerUp(true);
-            })
-            .catch((error) => {
-                console.log("Server is offline or unreachable");
-                setServerUp(false);
-            });
-    }
+    // function pingServer(url) {
+    //     fetch(url, { method: "GET", mode: "no-cors" })
+    //         .then((response) => {
+    //             setServerUp(true);
+    //         })
+    //         .catch((error) => {
+    //             console.log("Server is offline or unreachable");
+    //             setServerUp(false);
+    //         });
+    // }
 
-    useEffect(() => {
-        pingServer("https://react-anime-video-player.onrender.com");
-    }, []);
+    // useEffect(() => {
+    //     pingServer("https://react-anime-video-player.onrender.com");
+    // }, []);
+
+    const { goHome, arcSelected, setGoHome, setShowVideoPlayer } =
+        useContext(ArcSelectionContext);
 
     return (
         <>

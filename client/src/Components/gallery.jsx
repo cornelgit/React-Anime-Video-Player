@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
 import "./gallery.css";
 import card from "/Assets/VideoGallery/card.jpg";
 import gal1 from "/Assets/VideoGallery/gal1.png";
@@ -8,6 +8,7 @@ import gal4 from "/Assets/VideoGallery/gal4.png";
 import gal5 from "/Assets/VideoGallery/gal5.png";
 import ArcInfo from "./arcinfo";
 import { motion } from "framer-motion";
+import { ArcSelectionContext } from "../App";
 
 const imageVariants = {
     initial: {
@@ -41,22 +42,18 @@ const flipVariants = {
     },
 };
 
-function Gallery({ onVideoSelect, setLoading, setArcSelected }) {
+function Gallery() {
     const originalImages = [gal1, gal2, gal3, gal4, gal5];
     const memoizedImages = useMemo(() => originalImages, [originalImages]);
     const [images, setImages] = useState(memoizedImages);
     const [flipIndex, setFlipIndex] = useState(null);
     const [showArcInfo, setShowArcInfo] = useState(false);
 
-    useEffect(() => {
-        if (flipIndex !== null) {
-            setArcSelected(true);
-        } else {
-            setArcSelected(false);
-        }
-    }, [flipIndex]);
+    const { arcSelected, setArcSelected, handleVideoSelect, setLoading } =
+        useContext(ArcSelectionContext);
 
     const handleClick = (index) => {
+        setArcSelected(!arcSelected);
         setImages((prevImages) => {
             const newImages = [...prevImages];
             const isCurrentCard = newImages[index] === card;
@@ -112,13 +109,7 @@ function Gallery({ onVideoSelect, setLoading, setArcSelected }) {
                     </motion.div>
                 ))}
             </motion.div>
-            {showArcInfo && flipIndex !== null && (
-                <ArcInfo
-                    index={flipIndex}
-                    onVideoSelect={onVideoSelect}
-                    setLoading={setLoading}
-                />
-            )}
+            {showArcInfo && flipIndex !== null && <ArcInfo index={flipIndex} />}
         </div>
     );
 }

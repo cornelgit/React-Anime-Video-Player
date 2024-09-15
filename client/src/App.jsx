@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import VideoPlayer from "./Components/videoplayer";
 import Gallery from "./Components/gallery";
 import Title from "./Components/title";
 import Footer from "./Components/footer";
 import LoadingSpinner from "./Components/loadingspinner";
 import Frame from "./Components/frame";
+
+export const ArcSelectionContext = createContext();
 
 function App() {
     const [videoUrl, setVideoUrl] = useState("");
@@ -20,39 +22,40 @@ function App() {
         setVideoUrl(videoPath);
         setSubtitleUrl(subtitlePath);
         setShowVideoPlayer(true);
-        setShowVideoPlayer(true);
         setLoading(false);
     };
 
     return (
         <>
-            <Title
-                goHome={goHome}
-                setGoHome={setGoHome}
-                setShowVideoPlayer={setShowVideoPlayer}
-                arcSelected={arcSelected}
-            />
-            <Frame>
-                {!loading && !showVideoPlayer && (
-                    <Gallery
-                        onVideoSelect={handleVideoSelect}
-                        setLoading={setLoading}
-                        setArcSelected={setArcSelected}
-                    />
-                )}
-                {loading ? (
-                    <LoadingSpinner />
-                ) : (
-                    showVideoPlayer && (
-                        <div className="player-container">
-                            <VideoPlayer
-                                videoUrl={videoUrl}
-                                subtitleUrl={subtitleUrl}
-                            />
-                        </div>
-                    )
-                )}
-            </Frame>
+            <ArcSelectionContext.Provider
+                value={{
+                    goHome,
+                    arcSelected,
+                    setGoHome,
+                    setShowVideoPlayer,
+                    setLoading,
+                    setArcSelected,
+                    handleVideoSelect,
+                }}
+            >
+                <Title />
+
+                <Frame>
+                    {!loading && !showVideoPlayer && <Gallery />}
+                    {loading ? (
+                        <LoadingSpinner />
+                    ) : (
+                        showVideoPlayer && (
+                            <div className="player-container">
+                                <VideoPlayer
+                                    videoUrl={videoUrl}
+                                    subtitleUrl={subtitleUrl}
+                                />
+                            </div>
+                        )
+                    )}
+                </Frame>
+            </ArcSelectionContext.Provider>
             <Footer />
         </>
     );

@@ -1,8 +1,11 @@
 import "./arcinfo.css";
 import axios from "axios";
 import arcdetails from "../data/arcdetails.json";
+import { ArcSelectionContext } from "../App";
+import { useContext } from "react";
 
-function ArcInfo({ index, onVideoSelect, setLoading }) {
+function ArcInfo({ index }) {
+    const { handleVideoSelect, setLoading } = useContext(ArcSelectionContext);
     const arcTitles = Object.keys(arcdetails);
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
@@ -19,7 +22,7 @@ function ArcInfo({ index, onVideoSelect, setLoading }) {
                 }/episode/${episode}/subtitle`
             );
             const subtitleUrl = subtitleResponse.data.subtitleUrl;
-            onVideoSelect(videoUrl, subtitleUrl);
+            handleVideoSelect(videoUrl, subtitleUrl);
         } catch (error) {
             console.error("Error fetching episode:", error);
             alert(
