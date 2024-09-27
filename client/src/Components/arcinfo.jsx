@@ -5,7 +5,8 @@ import { ArcSelectionContext } from "../App";
 import { useContext } from "react";
 
 function ArcInfo({ index }) {
-    const { handleVideoSelect, setLoading } = useContext(ArcSelectionContext);
+    const { handleVideoSelect, setLoading, setGoHome, setArcSelected } =
+        useContext(ArcSelectionContext);
     const arcTitles = Object.keys(arcdetails);
     const arcTitle = arcTitles[index];
     const arcEpisodes = arcdetails[arcTitle];
@@ -23,13 +24,16 @@ function ArcInfo({ index }) {
             );
             const subtitleUrl = subtitleResponse.data.subtitleUrl;
             handleVideoSelect(videoUrl, subtitleUrl);
+            setGoHome(true);
+            setLoading(false);
+            setArcSelected(false);
         } catch (error) {
-            console.error("Error fetching episode:", error);
             alert(
                 "Failed to load episode. Video server may be spinning up or is down. Please try again."
             );
-        } finally {
+            setGoHome(false);
             setLoading(false);
+            setArcSelected(false);
         }
     };
 

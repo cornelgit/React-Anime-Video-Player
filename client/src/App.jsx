@@ -17,12 +17,12 @@ function App() {
     const [arcSelected, setArcSelected] = useState(false);
 
     const handleVideoSelect = (videoPath, subtitlePath) => {
-        setGoHome(true);
         setShowVideoPlayer(false);
         setVideoUrl(videoPath);
         setSubtitleUrl(subtitlePath);
         setShowVideoPlayer(true);
         setLoading(false);
+        setGoHome(true);
     };
 
     return (

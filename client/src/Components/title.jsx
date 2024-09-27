@@ -3,23 +3,6 @@ import { useContext } from "react";
 import { ArcSelectionContext } from "../App";
 
 function Title() {
-    // const [serverUp, setServerUp] = useState(false);
-
-    // function pingServer(url) {
-    //     fetch(url, { method: "GET", mode: "no-cors" })
-    //         .then((response) => {
-    //             setServerUp(true);
-    //         })
-    //         .catch((error) => {
-    //             console.log("Server is offline or unreachable");
-    //             setServerUp(false);
-    //         });
-    // }
-
-    // useEffect(() => {
-    //     pingServer("https://react-anime-video-player.onrender.com");
-    // }, []);
-
     const { goHome, arcSelected, setGoHome, setShowVideoPlayer } =
         useContext(ArcSelectionContext);
 
@@ -30,7 +13,7 @@ function Title() {
                     <button
                         className="title-container backToGallery"
                         onClick={() => {
-                            setGoHome(!goHome);
+                            setGoHome(false);
                             setShowVideoPlayer(false);
                         }}
                     >

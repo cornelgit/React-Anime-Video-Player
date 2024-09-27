@@ -49,8 +49,7 @@ function Gallery() {
     const [flipIndex, setFlipIndex] = useState(null);
     const [showArcInfo, setShowArcInfo] = useState(false);
 
-    const { arcSelected, setArcSelected, handleVideoSelect, setLoading } =
-        useContext(ArcSelectionContext);
+    const { arcSelected, setArcSelected } = useContext(ArcSelectionContext);
 
     const handleClick = (index) => {
         setArcSelected(!arcSelected);
