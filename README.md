@@ -1,3 +1,5 @@
+![Alt text](client/public/Assets/Screenshot/proj1.png)
+
 # Anime Video Player
 
 ## Author
