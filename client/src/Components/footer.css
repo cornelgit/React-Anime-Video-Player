@@ -19,3 +19,38 @@
     margin-left: auto;
     text-align: right;
 }
+
+@media (max-width: 1440px) {
+    .footer-container {
+        left: 10px;
+        padding-right: 10px;
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 1440px) {
+    .footer-container {
+        left: 10px;
+        padding-right: 10px;
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .footer-container {
+        left: 10px;
+        padding-right: 10px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        font-size: 1rem;
+        justify-content: center;
+    }
+
+    .footer-right {
+        display: none;
+    }
+}
